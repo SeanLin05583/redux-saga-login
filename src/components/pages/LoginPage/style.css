@@ -1,0 +1,55 @@
+.login-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  font-size: 18px;
+  border-bottom: 1px solid #CCCCCC;
+}
+
+.login-dialog-header > i {
+  color: #ADADAD;
+  cursor: pointer;
+}
+
+.login-dialog-content {
+  flex: 1;
+  padding: 5px 20px 20px;
+}
+
+.login-dialog-input-label {
+  margin-top: 10px;
+}
+
+.login-dialog-input {
+  width: 100%;
+  margin-top: 3px;
+  padding: 3px 5px;
+  border-radius: 2px;
+  border: 1px solid #CCCCCC;
+}
+
+.login-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 20px;
+  background-color: #E0E0E0;
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+}
+
+.login-dialog-footer-button {
+  padding: 6px 15px;
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  cursor: pointer;
+}
+
+.login-dialog-footer-button:last-child {
+  margin-left: 10px;
+}
+
+.primary {
+  background-color: #009EDA;
+  border-color: #009EDA;
+  color: #FFFFFF;
+}

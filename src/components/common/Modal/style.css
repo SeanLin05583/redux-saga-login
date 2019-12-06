@@ -1,0 +1,22 @@
+.modal-wrapper {
+  position: fixed;
+  z-index: 1500;
+  top: 0;
+  left: 0;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, .6);
+}
+
+.modal-inner {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  min-height: 200px;
+  background-color: #FFFFFF;
+  box-shadow: 0px 2px 5px 1px #4A4A4A;
+  border-radius: 3px;
+}

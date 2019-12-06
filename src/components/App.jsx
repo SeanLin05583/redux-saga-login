@@ -1,10 +1,12 @@
-import React from "react";
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
-} from "react-router-dom";
+} from 'react-router-dom';
+import './normalize.css';
+import './style.css';
 
 import { LoginPage, PrivatePage, PublicPage } from 'components/pages';
 
