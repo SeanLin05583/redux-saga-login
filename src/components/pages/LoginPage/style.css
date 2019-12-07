@@ -53,3 +53,9 @@
   border-color: #009EDA;
   color: #FFFFFF;
 }
+
+.primary:disabled {
+  cursor: not-allowed;
+  background-color: #CCCCCC;
+  border-color: #CCCCCC;
+}

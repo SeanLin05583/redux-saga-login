@@ -13,6 +13,8 @@ module.exports = {
   resolve: {
     alias: {
       components: path.resolve(__dirname, 'src/components/'),
+      reducers: path.resolve(__dirname, 'src/reducers/'),
+      sagas: path.resolve(__dirname, 'src/sagas/'),
     },
     extensions: ['.js', '.jsx'],
   },
