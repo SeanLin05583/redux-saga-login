@@ -37,6 +37,11 @@ function appReducer(state = initialState, action) {
         ...state,
         isLogin: false,
       };
+    case 'CANCEL_LOGIN':
+      return {
+        ...state,
+        isLoginLoading: false,
+      };
     default:
       return state;
   }

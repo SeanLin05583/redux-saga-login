@@ -1,4 +1,4 @@
-import { call, put, takeEvery, delay } from 'redux-saga/effects';
+import { put, take, delay, fork, cancel, cancelled } from 'redux-saga/effects';
 
 function* startLogin() {
   try {
@@ -8,11 +8,21 @@ function* startLogin() {
     yield put({ type: 'LOG_IN' });
   } catch (e) {
     console.log(e);
+  } finally {
+    if (yield cancelled()) {
+      console.log('login canceled');
+    }
   }
 }
 
-function* saga() {
-  yield takeEvery('START_LOGIN', startLogin);
+function* watchLogin() {
+  while (yield take('START_LOGIN')) {
+    const loginTask = yield fork(startLogin);
+    yield take('CANCEL_LOGIN');
+    yield cancel(loginTask)
+  }
 }
 
-export default saga;
+export default function* rootSaga() {
+  yield watchLogin();
+};
