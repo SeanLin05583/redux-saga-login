@@ -1,6 +1,9 @@
 const initialState = {
   userName: '',
+  userNameInvalidMsg: '',
   password: '',
+  passwordInvalidMsg: '',
+  dialogInvalidMsg: '',
   isLoginLoading: false,
   isLogin: false,
 }
@@ -11,11 +14,39 @@ function appReducer(state = initialState, action) {
       return {
         ...state,
         userName: action.payload,
+        userNameInvalidMsg: '',
+        dialogInvalidMsg: '',
+      };
+    case 'SET_USERNAME_INVALID_MSG':
+      return {
+        ...state,
+        userNameInvalidMsg: action.payload,
       };
     case 'SET_PASSWORD':
       return {
         ...state,
         password: action.payload,
+        passwordInvalidMsg: '',
+        dialogInvalidMsg: '',
+      };
+    case 'SET_PASSWORD_INVALID_MSG':
+      return {
+        ...state,
+        passwordInvalidMsg: action.payload,
+      };
+    case 'SET_DIALOG_INVALID_MSG':
+      return {
+        ...state,
+        dialogInvalidMsg: action.payload,
+      };
+    case 'CLEAR_LOGIN_FORM':
+      return {
+        ...state,
+        userName: '',
+        userNameInvalidMsg: '',
+        password: '',
+        passwordInvalidMsg: '',
+        dialogInvalidMsg: '',
       };
     case 'SET_LOGIN_LOADING':
       return {

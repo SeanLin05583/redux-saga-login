@@ -1,4 +1,4 @@
-import { put, take, delay, fork, cancel, cancelled } from 'redux-saga/effects';
+import { select, put, take, delay, fork, cancel, cancelled, takeEvery, all, call } from 'redux-saga/effects';
 
 function* startLogin() {
   try {
@@ -16,13 +16,41 @@ function* startLogin() {
 }
 
 function* watchLogin() {
-  while (yield take('START_LOGIN')) {
+  yield takeEvery('START_LOGIN', function* () {
     const loginTask = yield fork(startLogin);
     yield take('CANCEL_LOGIN');
     yield cancel(loginTask)
+  })
+}
+
+function* fieldValidation() {
+  const state = yield select();
+  if (state.userName === '' || state.password === '') {
+    if (state.userName === '') {
+      yield put({ type: 'SET_USERNAME_INVALID_MSG', payload: 'This is a required field' });
+    }
+
+    if (state.password === '') {
+      yield put({ type: 'SET_PASSWORD_INVALID_MSG', payload: 'This is a required field' });
+    }
+    return;
   }
+
+  if (state.userName !== 'guest' || state.password !== 'guest') {
+    yield put({ type: 'SET_DIALOG_INVALID_MSG', payload: 'Incorrect username or password' });
+    return;
+  }
+
+  yield put({ type: 'START_LOGIN' });
+}
+
+function* watchValidation() {
+  yield takeEvery('START_VALIDATION', fieldValidation);
 }
 
 export default function* rootSaga() {
-  yield watchLogin();
+  yield all([
+    watchValidation(),
+    watchLogin(),
+  ])
 };

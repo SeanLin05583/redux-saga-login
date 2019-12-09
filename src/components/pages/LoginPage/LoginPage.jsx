@@ -9,19 +9,34 @@ const cx = classnames.bind(style);
 
 const LoginPage = () => {
   const [isShowLoginForm, setIsShowLoginForm] = useState(false);
-  const { userName, password, isLoginLoading, isLogin } = useSelector(state => state);
+  const {
+    userName,
+    userNameInvalidMsg,
+    password,
+    passwordInvalidMsg,
+    dialogInvalidMsg,
+    isLoginLoading,
+    isLogin,
+  } = useSelector(state => state);
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
     if (isLogin) {
+      dispatch({ type: 'CLEAR_LOGIN_FORM' });
       history.push('/protected');
     }
   }, [isLogin]);
 
   const toggleLoginFormShow = useCallback(() => {
+    if (!isShowLoginForm) {
+      dispatch({ type: 'CLEAR_LOGIN_FORM' });
+    }
+    if (isLoginLoading) {
+      dispatch({ type: 'CANCEL_LOGIN' });
+    }
     setIsShowLoginForm(!isShowLoginForm);
-  }, [isShowLoginForm]);
+  }, [isShowLoginForm, isLoginLoading]);
 
   const handleUsernameChange = e => {
     dispatch({ type: 'SET_USERNAME', payload: e.target.value });
@@ -32,7 +47,7 @@ const LoginPage = () => {
   }
 
   const handleLogin = () => {
-    dispatch({ type: 'START_LOGIN' });
+    dispatch({ type: 'START_VALIDATION' });
   }
 
   const handleLoginCancel = () => {
@@ -51,18 +66,41 @@ const LoginPage = () => {
           </div>
           <div className={cx('login-dialog-content')}>
             <p className={cx('login-dialog-input-label')}>Username</p>
-            <input className={cx('login-dialog-input')} onChange={handleUsernameChange} value={userName} />
+            <input
+              className={cx('login-dialog-input')}
+              onChange={handleUsernameChange}
+              value={userName}
+              disabled={isLoginLoading}
+            />
+            <p className={cx('login-dialog-input-invalid-msg')}>{userNameInvalidMsg}</p>
             <p className={cx('login-dialog-input-label')}>Password</p>
-            <input className={cx('login-dialog-input')} onChange={handlePasswordChange} value={password} />
+            <input
+              className={cx('login-dialog-input')}
+              onChange={handlePasswordChange}
+              value={password}
+              disabled={isLoginLoading}
+            />
+            <p className={cx('login-dialog-input-invalid-msg')}>{passwordInvalidMsg}</p>
+            <p className={cx('login-dialog-input-invalid-msg')}>{dialogInvalidMsg}</p>
           </div>
           <div className={cx('login-dialog-footer')}>
-            <button className={cx('login-dialog-footer-button')} onClick={handleLoginCancel}>Cancel</button>
+            <button
+              className={cx('login-dialog-footer-button')}
+              onClick={handleLoginCancel}
+              disabled={!isLoginLoading}
+            >
+              Cancel
+            </button>
             <button
               className={cx('login-dialog-footer-button', 'primary')}
               onClick={handleLogin}
               disabled={isLoginLoading}
             >
-              Sign In
+              {isLoginLoading ?
+                <span className={cx('button-spinner')} />
+                :
+                'Sign In'
+              }
             </button>
           </div>
         </Modal>

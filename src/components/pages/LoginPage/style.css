@@ -6,7 +6,7 @@
   border-bottom: 1px solid #CCCCCC;
 }
 
-.login-dialog-header > i {
+.login-dialog-header>i {
   color: #ADADAD;
   cursor: pointer;
 }
@@ -28,6 +28,17 @@
   border: 1px solid #CCCCCC;
 }
 
+.login-dialog-input:disabled {
+  cursor: not-allowed;
+  border-color: #F1F1F1;
+  background-color: #F1F1F1;
+}
+
+.login-dialog-input-invalid-msg {
+  color: #F10606;
+  margin-top: 5px;
+}
+
 .login-dialog-footer {
   display: flex;
   justify-content: flex-end;
@@ -38,10 +49,35 @@
 }
 
 .login-dialog-footer-button {
+  min-width: 75px;
+  min-height: 35px;
   padding: 6px 15px;
   border-radius: 2px;
   background-color: #FFFFFF;
   cursor: pointer;
+}
+
+.button-spinner {
+  display: block;
+  height: 1.5em;
+  width: 1.5em;
+  margin: auto;
+  border-radius: 50%;
+  border: .15em solid rgba(255, 255, 255, 0.16);
+  border-top-color: #FFFFFF;
+  animation: spinner .5s linear infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.login-dialog-footer-button:disabled {
+  cursor: not-allowed;
+  background-color: #CCCCCC;
+  border-color: #CCCCCC;
 }
 
 .login-dialog-footer-button:last-child {
@@ -55,7 +91,6 @@
 }
 
 .primary:disabled {
-  cursor: not-allowed;
-  background-color: #CCCCCC;
-  border-color: #CCCCCC;
+  background-color: #8ECFE6;
+  border-color: #8ECFE6;
 }
