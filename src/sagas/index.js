@@ -1,4 +1,4 @@
-import { select, put, take, delay, fork, cancel, cancelled, takeEvery, all, call } from 'redux-saga/effects';
+import { select, put, take, delay, fork, cancel, cancelled, takeEvery, all } from 'redux-saga/effects';
 
 function* startLogin() {
   try {
@@ -24,19 +24,19 @@ function* watchLogin() {
 }
 
 function* fieldValidation() {
-  const state = yield select();
-  if (state.userName === '' || state.password === '') {
-    if (state.userName === '') {
+  const { userName, password } = yield select();
+  if (userName === '' || password === '') {
+    if (userName === '') {
       yield put({ type: 'SET_USERNAME_INVALID_MSG', payload: 'This is a required field' });
     }
 
-    if (state.password === '') {
+    if (password === '') {
       yield put({ type: 'SET_PASSWORD_INVALID_MSG', payload: 'This is a required field' });
     }
     return;
   }
 
-  if (state.userName !== 'guest' || state.password !== 'guest') {
+  if (userName !== 'guest' || password !== 'guest') {
     yield put({ type: 'SET_DIALOG_INVALID_MSG', payload: 'Incorrect username or password' });
     return;
   }

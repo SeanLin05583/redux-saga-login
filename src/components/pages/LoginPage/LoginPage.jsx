@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { memo, useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Modal } from 'components/common';
@@ -7,7 +7,7 @@ import style from './style.css';
 
 const cx = classnames.bind(style);
 
-const LoginPage = () => {
+const LoginPage = memo(() => {
   const [isShowLoginForm, setIsShowLoginForm] = useState(false);
   const {
     userName,
@@ -107,6 +107,6 @@ const LoginPage = () => {
       }
     </div>
   );
-}
+});
 
 export default LoginPage;

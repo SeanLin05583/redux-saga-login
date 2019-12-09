@@ -6,10 +6,12 @@ import {
   Link,
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import classnames from 'classnames/bind';
+import style from './style.css'
 import './normalize.css';
-import './style.css';
-
 import { LoginPage, PrivatePage, PublicPage } from 'components/pages';
+
+const cx = classnames.bind(style);
 
 export default function App() {
   const isLogin = useSelector(state => state.isLogin);
@@ -21,15 +23,17 @@ export default function App() {
 
   return (
     <Router>
-      <div>
-        {isLogin ?
-          <p>
-            Welcome!
-            <button onClick={handleLogout}>Sign out</button>
-          </p>
-          :
-          <p>You are not logged in.</p>
-        }
+      <div className={cx('app-container')}>
+        <h2>
+          {isLogin ?
+            <>
+              Welcome!
+              <button onClick={handleLogout}>Sign out</button>
+            </>
+            :
+            'You are not logged in.'
+          }
+        </h2>
         <ul>
           <li>
             <Link to="/public">Public Page</Link>
